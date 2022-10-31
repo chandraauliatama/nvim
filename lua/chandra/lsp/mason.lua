@@ -19,7 +19,7 @@ mason.setup({
 })
 mason_lspconfig.setup({
 	automatic_installation = true,
-	ensure_installed = { "sumneko_lua", "jsonls", "tsserver" },
+	ensure_installed = { "sumneko_lua", "jsonls", "tsserver", "intelephense" },
 })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
@@ -46,6 +46,10 @@ mason_lspconfig.setup_handlers({
 			local sumneko_opts = require("chandra.lsp.settings.sumneko_lua")
 			opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
 		end
+    		if server_name == "intelephense" then
+      			local intelephense_opts = require("chandra.lsp.settings.intelephense")
+      			opts = vim.tbl_deep_extend("force", intelephense_opts, opts)
+    		end
 
 		lspconfig[server_name].setup(opts)
 	end,
